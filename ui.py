@@ -5,11 +5,15 @@ from unittest import skip
 from quiz_brain import QuizBrain
 
 class QuizUI:
-    def __init__(self, quiz: QuizBrain):
-        self.window = Tk()
+    def __init__(self):
+        try: 
+            self.window
+        except:
+            self.window = Tk()
         self.window.title('Quizzee')
         self.window.config(bg=THEME_COLOR)
         self.window.minsize(width=340, height=500)
+        quiz = QuizBrain()
         self.score = 0
         self.quiz = quiz
 
@@ -48,7 +52,7 @@ class QuizUI:
         self.ok_button["state"] = 'disabled'
         self.x_button["state"] = 'disabled'
 
-        self.window.after(2000, self.get_next_question)
+        self.window.after(500, self.get_next_question)
 
     def x_pressed(self):
         if self.quiz.check_answer("False"):
@@ -58,7 +62,7 @@ class QuizUI:
             self.canvas.config(bg="red")
         self.ok_button["state"] = 'disabled'
         self.x_button["state"] = 'disabled'
-        self.window.after(2000, self.get_next_question)
+        self.window.after(500, self.get_next_question)
         
     def game_over(self):
         for widjets in self.window.winfo_children():
@@ -67,7 +71,10 @@ class QuizUI:
         self.game_over_label.pack(ipadx=20, ipady=20)
         self.final_score = Label(text=f'Final Score: {self.quiz.score}', font=("Courier", 26, "bold"), fg="white", bg=THEME_COLOR, highlightthickness=0)
         self.final_score.pack(ipadx=20, ipady=20)
-        self.play_again_button = Button(text="Play Again", command=self.start_over)
+        self.play_again_button = Button(text="Play Again", command=self.game_start)
+        self.play_again_button.pack(ipadx=20, ipady=20)
     
-    def start_over(self):
-        return
+    def game_start(self):
+        for widjets in self.window.winfo_children():
+            widjets.destroy()
+        self.__init__()
