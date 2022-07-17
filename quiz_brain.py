@@ -1,12 +1,22 @@
 import html
+from question_model import Question
+from data import question_data
 
 class QuizBrain:
 
-    def __init__(self, q_list):
+    def __init__(self):
         self.question_number = 0
         self.score = 0
-        self.question_list = q_list
+        self.get_questions()
         self.current_question = None
+
+    def get_questions(self):
+        self.question_list = []
+        for question in question_data:
+            question_text = question["question"]
+            question_answer = question["correct_answer"]
+            new_question = Question(question_text, question_answer)
+            self.question_list.append(new_question)
 
     def still_has_questions(self):
         return self.question_number < len(self.question_list)
