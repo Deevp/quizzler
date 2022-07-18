@@ -1,6 +1,6 @@
 import html
 from question_model import Question
-from data import question_data
+from data import Data
 
 class QuizBrain:
 
@@ -12,6 +12,8 @@ class QuizBrain:
 
     def get_questions(self):
         self.question_list = []
+        data = Data()
+        question_data = data.question_data
         for question in question_data:
             question_text = question["question"]
             question_answer = question["correct_answer"]
