@@ -10,7 +10,7 @@ class QuizUI:
             self.window
         except:
             self.window = Tk()
-        self.window.title('Quizzee')
+        self.window.title('Quizler')
         self.window.config(bg=THEME_COLOR)
         self.window.minsize(width=340, height=500)
         quiz = QuizBrain()
